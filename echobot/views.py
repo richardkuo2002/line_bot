@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
-from linebot.models import MessageEvent, TextSendMessage
+from linebot.models import *
 
 from echobot.models import *
 
@@ -50,13 +50,63 @@ def callback(request):
                 if User_Info.objects.filter(uid=uid).exists()==False:
                     User_Info.objects.create(uid=uid,name=name,pic_url=pic_url,mtext=mtext)
                     message.append(TextSendMessage(text='會員資料新增完畢'))
+                    line_bot_api.reply_message(event.reply_token,message)
                 elif User_Info.objects.filter(uid=uid).exists()==True:
                     message.append(TextSendMessage(text='已經有建立會員資料囉'))
                     user_info = User_Info.objects.filter(uid=uid)
                     for user in user_info:
                         info = 'UID=%s\nNAME=%s\n大頭貼=%s'%(user.uid,user.name,user.pic_url)
                         message.append(TextSendMessage(text=info))
+                    line_bot_api.reply_message(event.reply_token,message)
                 line_bot_api.reply_message(event.reply_token,message)
+
+                # if event.message.type=='text':
+                #     message.append(TextSendMessage(text='文字訊息'))
+                #     line_bot_api.reply_message(event.reply_token,message)
+
+                # elif event.message.type=='image':
+                #     message.append(TextSendMessage(text='圖片訊息'))
+                #     line_bot_api.reply_message(event.reply_token,message)
+
+                # elif event.message.type=='location':
+                #     message.append(TextSendMessage(text='位置訊息'))
+                #     line_bot_api.reply_message(event.reply_token,message)
+
+                # elif event.message.type=='video':
+                #     message.append(TextSendMessage(text='影片訊息'))
+                #     line_bot_api.reply_message(event.reply_token,message)
+
+
+                # elif event.message.type=='sticker':
+                #     message.append(TextSendMessage(text='貼圖訊息'))
+                #     line_bot_api.reply_message(event.reply_token,message)
+
+                # elif event.message.type=='audio':
+                #     message.append(TextSendMessage(text='聲音訊息'))
+                #     line_bot_api.reply_message(event.reply_token,message)
+
+                # elif event.message.type=='file':
+                #     message.append(TextSendMessage(text='檔案訊息'))
+                #     line_bot_api.reply_message(event.reply_token,message)
+            # elif isinstance(event, FollowEvent):
+            #     print('加入好友')
+            #     line_bot_api.reply_message(event.reply_token,message)
+            # elif isinstance(event, UnfollowEvent):
+            #     print('取消好友')
+            # elif isinstance(event, JoinEvent):
+            #     print('進入群組')
+            #     line_bot_api.reply_message(event.reply_token,message)
+            # elif isinstance(event, LeaveEvent):
+            #     print('離開群組')
+            #     line_bot_api.reply_message(event.reply_token,message)
+            # elif isinstance(event, MemberJoinedEvent):
+            #     print('有人入群')
+            #     line_bot_api.reply_message(event.reply_token,message)
+            # elif isinstance(event, MemberLeftEvent):
+            #     print('有人退群')
+            #     line_bot_api.reply_message(event.reply_token,message)
+            # elif isinstance(event, PostbackEvent):
+            #     print('PostbackEvent')
         
         return HttpResponse()
     else:
