@@ -22,10 +22,11 @@ def callback(request):
         # get request body as text
         body = request.body.decode('utf-8')
 
-        # handle webhook body
         try:
-            handler.handle(body, signature)
+            events = WebhookParser.parse(body, signature)
         except InvalidSignatureError:
+            return HttpResponseForbidden()
+        except LineBotApiError:
             return HttpResponseBadRequest()
 
         for event in events:
