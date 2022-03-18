@@ -1,5 +1,8 @@
+import imp
+from django.shortcuts import render
+
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.http import  HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 
 from linebot import LineBotApi, WebhookHandler, WebhookParser
@@ -23,7 +26,7 @@ def callback(request):
         body = request.body.decode('utf-8')
 
         try:
-            events = WebhookParser.parse(body, signature)
+            events = parser.parse(body, signature)
         except InvalidSignatureError:
             return HttpResponseForbidden()
         except LineBotApiError:
