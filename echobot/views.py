@@ -13,7 +13,7 @@ line_bot_api = LineBotApi('8q9MjJrPlCYTK9c/tVoaHfLkZMMhjsfihsw1f4s03ZE4erq1i7N/n
 handler = WebhookHandler('fc08e253935409bac40d3a6b8846b71b')
 
 @csrf_exempt
-def callback(request: HttpRequest) -> HttpResponse:
+def callback(request):
     
     if request.method == "POST":
         # get X-Line-Signature header value
@@ -28,14 +28,16 @@ def callback(request: HttpRequest) -> HttpResponse:
         except InvalidSignatureError:
             return HttpResponseBadRequest()
 
+        for event in events:
+            if isinstance(event, MessageEvent):
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=event.message.text)
+        )
+        
         return HttpResponse()
     else:
         return HttpResponseBadRequest()
+    
 
 
-@handler.add(MessageEvent, message=TextMessage)
-def message_text(event: MessageEvent):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=event.message.text)
-    )
