@@ -46,7 +46,6 @@ def callback(request):
                 profile=line_bot_api.get_profile(uid)
                 name=profile.display_name
                 pic_url=profile.picture_url
-
                 message=[]
                 if User_Info.objects.filter(uid=uid).exists()==False:
                     User_Info.objects.create(uid=uid,name=name,pic_url=pic_url,mtext=mtext)
