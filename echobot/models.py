@@ -10,3 +10,4 @@ class User_Info(models.Model):
 
     def __str__(self):
         return self.uid
+        
