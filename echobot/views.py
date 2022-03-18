@@ -58,7 +58,6 @@ def callback(request):
                         info = 'UID=%s\nNAME=%s\n大頭貼=%s'%(user.uid,user.name,user.pic_url)
                         message.append(TextSendMessage(text=info))
                     line_bot_api.reply_message(event.reply_token,message)
-                line_bot_api.reply_message(event.reply_token,message)
 
                 # if event.message.type=='text':
                 #     message.append(TextSendMessage(text='文字訊息'))
