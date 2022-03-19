@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import *
+from matplotlib.pyplot import text
 
 from echobot.models import *
 
@@ -46,6 +47,10 @@ def callback(request):
                 name=profile.display_name
                 pic_url=profile.picture_url
                 message=[]
+                for t in len(mtext):
+                    if mtext[t] =="幹":
+                        message.append(TextSendMessage(text='⚠由于此讯息不符合符合国家安全法规，已被屏蔽。'))
+                        line_bot_api.reply_message(event.reply_token,message)
                 if mtext=="510" or mtext=="吳彥霖" or mtext=="彥霖" or mtext=="@Yalin.":
                     message.append(TextSendMessage(text='請支持1號候選人–吳彥霖。資管要贏，票投彥霖！'))
                     line_bot_api.reply_message(event.reply_token,message)
