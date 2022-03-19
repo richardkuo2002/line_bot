@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import *
+from matplotlib.pyplot import text
 
 from echobot.models import *
 
@@ -47,17 +48,20 @@ def callback(request):
                 name=profile.display_name
                 pic_url=profile.picture_url
                 message=[]
-                if User_Info.objects.filter(uid=uid).exists()==False:
+                if mtext=="510" or mtext=='吳彥霖' or mtext=='彥霖' or mtext=='@Yalin.':
+                    message.append(TextSendMessage(text='請支持1號候選人–吳彥霖。資管要贏，票投彥霖！'))
+                    line_bot_api.reply_message(event.reply_token,message)
+                elif User_Info.objects.filter(uid=uid).exists()==False:
                     User_Info.objects.create(uid=uid,name=name,pic_url=pic_url,mtext=mtext)
-                    message.append(TextSendMessage(text='會員資料新增完畢'))
+                    message.append(TextSendMessage(text='你的個資已被資管彥霖會長掌握，請謹言慎行'))
                     line_bot_api.reply_message(event.reply_token,message)
-                elif User_Info.objects.filter(uid=uid).exists()==True:
-                    message.append(TextSendMessage(text='已經有建立會員資料囉'))
-                    user_info = User_Info.objects.filter(uid=uid)
-                    for user in user_info:
-                        info = 'UID=%s\nNAME=%s\n大頭貼=%s'%(user.uid,user.name,user.pic_url)
-                        message.append(TextSendMessage(text=info))
-                    line_bot_api.reply_message(event.reply_token,message)
+                # elif User_Info.objects.filter(uid=uid).exists()==True:
+                    # message.append(TextSendMessage(text='已經有建立會員資料囉'))
+                    # user_info = User_Info.objects.filter(uid=uid)
+                    # for user in user_info:
+                    #     info = 'UID=%s\nNAME=%s\n大頭貼=%s'%(user.uid,user.name,user.pic_url)
+                    #     message.append(TextSendMessage(text=info))
+                    # line_bot_api.reply_message(event.reply_token,message)
 
                 # if event.message.type=='text':
                 #     message.append(TextSendMessage(text='文字訊息'))
