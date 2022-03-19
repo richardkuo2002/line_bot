@@ -41,21 +41,29 @@ def callback(request):
             #      )
             if isinstance(event, MessageEvent):
                 yalin_keyword = ['510','吳彥霖','彥霖','@Yalin']
+                banword = ['幹','你媽','操']
+                questionword = ['幫我素','幫素','吃ㄐㄐ','ㄐㄐ']
                 mtext=event.message.text
                 uid=event.source.user_id
                 profile=line_bot_api.get_profile(uid)
                 name=profile.display_name
                 pic_url=profile.picture_url
                 message=[]
-                for text_check in mtext:
-                    if text_check =="幹":
-                        message.append(TextSendMessage(text='⚠由于此讯息不符合符合国家安全法规，已被屏蔽。'))
+                for text_check in questionword:
+                    if mtext.find(text_check)!=-1:
+                        message.append(TextSendMessage(text='？'))
+                        line_bot_api.reply_message(event.reply_token,message)
+                        break
+                for text_check in banword:
+                    if mtext.find(text_check)!=-1:
+                        message.append(TextSendMessage(text='⚠由于此讯息不符合符合吴彦霖主席安全法规，已被屏蔽。'))
                         line_bot_api.reply_message(event.reply_token,message)
                         break
                 for text_check in yalin_keyword:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='請支持1號候選人–吳彥霖。資管要贏，票投彥霖！'))
                         line_bot_api.reply_message(event.reply_token,message)
+                        break
                 if User_Info.objects.filter(uid=uid).exists()==False:
                     User_Info.objects.create(uid=uid,name=name,pic_url=pic_url,mtext=mtext)
                     message.append(TextSendMessage(text='你的個資已被資管彥霖會長掌握，請謹言慎行'))
