@@ -42,7 +42,7 @@ def callback(request):
             if isinstance(event, MessageEvent):
                 yalin_keyword = ['510','吳彥霖','彥霖','@Yalin']
                 banword = ['幹','你媽','操']
-                questionword = ['幫我素','幫素','吃ㄐㄐ','ㄐㄐ']
+                questionword = ['幫我素','幫素','吃ㄐㄐ','ㄐㄐ','打手槍','?','？']
                 mtext=event.message.text
                 uid=event.source.user_id
                 profile=line_bot_api.get_profile(uid)
