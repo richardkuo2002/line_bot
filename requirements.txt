@@ -6,6 +6,7 @@ dj_static==0.0.6
 dj_database_url==0.5.0
 future==0.18.2
 idna==2.8
+jsonschema==4.2.1
 line-bot-sdk==1.15.0
 pytz==2019.3
 requests==2.22.0

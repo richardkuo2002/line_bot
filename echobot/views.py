@@ -9,6 +9,7 @@ from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import *
 
 from echobot.models import *
+import json
 
 
 
@@ -40,26 +41,25 @@ def callback(request):
             #     TextSendMessage(text=event.message.text)
             #      )
             if isinstance(event, MessageEvent):
-                yalin_keyword = ['510','吳彥霖','彥霖','@Yalin']
-                banword = ['幹','你媽','操','耖','靠北','靠杯','白痴','e04']
-                questionword = ['幫我素','幫素','吃ㄐㄐ','ㄐㄐ','打手槍','手槍','?','？']
+                with open('keyword.json', mode='r', encoding='utf8') as jfile:
+                    jdata = json.load(jfile)
                 mtext=event.message.text
                 uid=event.source.user_id
                 profile=line_bot_api.get_profile(uid)
                 name=profile.display_name
                 pic_url=profile.picture_url
                 message=[]
-                for text_check in questionword:
+                for text_check in jdata["questionword"]:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='？'))
                         line_bot_api.reply_message(event.reply_token,message)
                         break
-                for text_check in banword:
+                for text_check in jdata["banword"]:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='⚠由于此讯息不符合符合吴彦霖主席安全法规，已被屏蔽。'))
                         line_bot_api.reply_message(event.reply_token,message)
                         break
-                for text_check in yalin_keyword:
+                for text_check in jdata["yalin_keyword"]:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='請支持1號候選人–吳彥霖。資管要贏，票投彥霖！'))
                         line_bot_api.reply_message(event.reply_token,message)
