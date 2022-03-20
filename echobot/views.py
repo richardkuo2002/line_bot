@@ -26,7 +26,8 @@ def callback(request):
 
         # get request body as text
         body = request.body.decode('utf-8')
-
+        with open('keyword.json', mode='r', encoding='utf8') as jfile:
+            jdata = json.load(jfile)
         try:
             events = parser.parse(body, signature)
         except InvalidSignatureError:
@@ -40,9 +41,9 @@ def callback(request):
             #     event.reply_token,
             #     TextSendMessage(text=event.message.text)
             #      )
+        
             if isinstance(event, MessageEvent):
-                with open('keyword.json', mode='r', encoding='utf8') as jfile:
-                    jdata = json.load(jfile)
+                
                 mtext=event.message.text
                 uid=event.source.user_id
                 profile=line_bot_api.get_profile(uid)
