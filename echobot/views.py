@@ -41,7 +41,7 @@ def callback(request):
             #      )
             if isinstance(event, MessageEvent):
                 yalin_keyword = ['510','吳彥霖','彥霖','@Yalin']
-                banword = ['幹','你媽','操','耖','靠北','靠杯']
+                banword = ['幹','你媽','操','耖','靠北','靠杯','白痴','e04']
                 questionword = ['幫我素','幫素','吃ㄐㄐ','ㄐㄐ','打手槍','手槍','?','？']
                 mtext=event.message.text
                 uid=event.source.user_id
