@@ -26,8 +26,6 @@ def callback(request):
 
         # get request body as text
         body = request.body.decode('utf-8')
-        with open('keyword.json', mode='r', encoding='utf8') as jfile:
-            jdata = json.load(jfile)
         try:
             events = parser.parse(body, signature)
         except InvalidSignatureError:
@@ -50,17 +48,20 @@ def callback(request):
                 name=profile.display_name
                 pic_url=profile.picture_url
                 message=[]
-                for text_check in jdata["questionword"]:
+                yalin_keyword = [ "510","吳彥霖","彥霖","@Yalin"]
+                banword = ["幹","你媽","操","耖","靠北","靠杯","白痴","e04"]
+                questionword = ["幫我素","幫素","吃ㄐㄐ","ㄐㄐ","打手槍","手槍","?","？"]
+                for text_check in questionword:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='？'))
                         line_bot_api.reply_message(event.reply_token,message)
                         break
-                for text_check in jdata["banword"]:
+                for text_check in banword:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='⚠由于此讯息不符合符合吴彦霖主席安全法规，已被屏蔽。'))
                         line_bot_api.reply_message(event.reply_token,message)
                         break
-                for text_check in jdata["yalin_keyword"]:
+                for text_check in yalin_keyword:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='請支持1號候選人–吳彥霖。資管要贏，票投彥霖！'))
                         line_bot_api.reply_message(event.reply_token,message)
