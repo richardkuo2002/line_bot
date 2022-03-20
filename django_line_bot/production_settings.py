@@ -13,13 +13,7 @@ DATABASES = {
     #     'HOST': 'localhost', 
     # }
 }
-STATIC_ROOT= os.path.join(BASE_DIR, "static") # 設定網站正式上線時靜態檔案目錄位置
+STATIC_ROOT= os.path.join(BASE_DIR, "staticfiles") # 設定網站正式上線時靜態檔案目錄位置
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') # 設定HTTP連線方式
 ALLOWED_HOSTS = ['*'] # 讓所有的網域都能瀏覽本網站
 DEBUG = False # 關閉除錯模式
-
-#heroku上Django設定css
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MIDDLEWARE_CLASSES = ('whitenoise.middleware.WhiteNoiseMiddleware')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
