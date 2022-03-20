@@ -21,5 +21,5 @@ DEBUG = False # 關閉除錯模式
 #heroku上Django設定css
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MIDDLEWARE_CLASSES = ('whitenoise.middleware.WhiteNoiseMiddleware')
+# MIDDLEWARE_CLASSES = ('whitenoise.middleware.WhiteNoiseMiddleware')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
