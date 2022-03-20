@@ -121,6 +121,7 @@ STATIC_URL = '/static/'
 STATICILES_DIRS = [
     os.path.join(BASE_DIR,'static')#加入static路徑
 ]
+STATIC_ROOT= os.path.join(BASE_DIR, "staticfiles") # 設定網站正式上線時靜態檔案目錄位置
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
