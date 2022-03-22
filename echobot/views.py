@@ -57,10 +57,12 @@ def callback(request):
                 for text_check in bot_keyword:
                     if mtext.find(text_check)!=-1:
                         bot_message = "機油好難喝"
+                        oil = ""
                         for i in bot_message:
-                            message.append(TextSendMessage(text=i))
+                            oil.append(i)
                             if random()>0.5:
-                                message.append(TextSendMessage(test="..."))
+                                oil.append("...")
+                        message.append(TextSendMessage(text=oil))
                         line_bot_api.reply_message(event.reply_token,message)
                         break
                 for text_check in questionword:
