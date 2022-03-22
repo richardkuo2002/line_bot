@@ -53,7 +53,7 @@ def callback(request):
                 yalin_keyword = [ "510","吳彥霖","彥霖","@Yalin"]
                 banword = ["幹","你媽","操","耖","靠北","靠杯","白痴","e04"]
                 questionword = ["幫我素","幫素","吃ㄐㄐ","ㄐㄐ","雞雞","打手槍","手槍","?","？"]
-                bot_keyword = ["機器人","雞雞人","ㄐㄐ人","bot","BOT","Bot","Robot","robot"]
+                bot_keyword = ["機器人","雞雞人","ㄐㄐ人","bot","BOT","Bot","Robot","robot","🤖️"]
                 for text_check in bot_keyword:
                     if mtext.find(text_check)!=-1:
                         bot_message = "機油好難喝"
