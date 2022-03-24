@@ -72,6 +72,8 @@ def callback(request):
                             message.append(TextSendMessage(text='？'))
                             line_bot_api.reply_message(event.reply_token,message)
                             break
+                        else:
+                            break
                 for text_check in banword:
                     if mtext.find(text_check)!=-1:
                         message.append(TextSendMessage(text='⚠由于此讯息不符合符合吴彦霖主席安全法规，已被屏蔽。'))
