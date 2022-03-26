@@ -51,7 +51,7 @@ def callback(request):
                 pic_url=profile.picture_url
                 message=[]
                 yalin_keyword = [ "510","吳彥霖","彥霖","@Yalin"]
-                banword = ["幹","你媽","操","耖","靠北","靠杯","白痴","e04"]
+                banword = ["幹","你媽","操","耖","靠北","靠杯","白痴","e04","NM","nm"]
                 questionword = ["幫我素","幫素","吃ㄐㄐ","ㄐㄐ","雞雞","打手槍","手槍","?","？"]
                 bot_keyword = ["機器人","雞雞人","ㄐㄐ人","bot","BOT","Bot","Robot","robot","🤖️"]
                 for text_check in bot_keyword:
