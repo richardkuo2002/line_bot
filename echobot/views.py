@@ -68,11 +68,11 @@ def callback(request):
                         break
                 for text_check in questionword:
                     if mtext.find(text_check)!=-1:
-                        if mtext.find("http")==-1 or mtext.find("HTTP")==-1:
-                            message.append(TextSendMessage(text='？'))
-                            line_bot_api.reply_message(event.reply_token,message)
+                        if mtext.find("http")!=-1 or mtext.find("HTTP")!=-1:
                             break
                         else:
+                            message.append(TextSendMessage(text='？'))
+                            line_bot_api.reply_message(event.reply_token,message)
                             break
                 for text_check in banword:
                     if mtext.find(text_check)!=-1:
