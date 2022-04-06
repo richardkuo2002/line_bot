@@ -36,11 +36,11 @@ def callback(request):
             return HttpResponseBadRequest()
 
         for event in events:
-            # if isinstance(event, MessageEvent):
-            #     line_bot_api.reply_message(
-            #     event.reply_token,
-            #     TextSendMessage(text=event.message.text)
-            #      )
+            if isinstance(event, MessageEvent):
+                line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=event.message.text)
+                 )
         
             if isinstance(event, MessageEvent):
                 
@@ -88,6 +88,7 @@ def callback(request):
                     User_Info.objects.create(uid=uid,name=name,pic_url=pic_url,mtext=mtext)
                     message.append(TextSendMessage(text='你的個資已被資管彥霖會長掌握，請謹言慎行'))
                     line_bot_api.reply_message(event.reply_token,message)
+                
                 # elif User_Info.objects.filter(uid=uid).exists()==True:
                     # message.append(TextSendMessage(text='已經有建立會員資料囉'))
                     # user_info = User_Info.objects.filter(uid=uid)
